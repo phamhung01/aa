@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>DanTriSoft WebApp</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    
+    <link href="assets/css/styleLogin.all.min.css" rel="stylesheet" />
+
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+	
+	<!--
+    <script type="text/javascript">
+         if (window.location.protocol == "http:") {
+             
+             if (window.location.hostname !== 'localhost')
+             {
+                 var restOfUrl = window.location.href.substr(5);
+                 window.location = "https:" + restOfUrl;
+             }
+         }
+    </script>
+	-->
+
+</head>
+
+<body class="login" ng-app="WebApp">
+
+    <div style="margin-top:25px;">
+    </div>
+
+    <div class="menu-toggler sidebar-toggler">
+    </div>
+
+    <div class="content" style="background-color:transparent;text-align:center;">
+
+        <img src="assets/img/logoLogin.png" style="width:95%;height:95%;" />
+    </div>
+
+    <div class="content" id="idContentLogin">
+
+        <!-- BEGIN LOGIN FORM -->
+        <form class="login-form" style="width:300px;margin:auto;" method="post" id="formLogin" name="formLogin" ng-controller="LoginCtrl">
+            <h3 class="form-title" style="text-align:center;">ĐĂNG NHẬP HỆ THỐNG</h3>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">Mã gian hàng</label>
+                <div class="input-group">
+                    <span class="input-group-addon" style="background-color:#21A6DE;color:#fff;border:1px solid #21A6DE;"><span class="glyphicon glyphicon-home"></span> </span>
+                    <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Mã gian hàng"
+                           name="MaGianHang" id="login.MaGianHang" ng-model="MaGianHang" required />
+                    <p ng-show="formLogin.$invalid" ng-if="submitted && formLogin.MaGianHang.$error.required" class="validate-text-warning">Vui lòng nhập Mã gian hàng</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">Tên đăng nhập</label>
+                <div class="input-group">
+                    <span class="input-group-addon" style="background-color:#21A6DE;color:#fff;border:1px solid #21A6DE;"><span class="glyphicon glyphicon-user"></span> </span>
+                    <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Tên đăng nhập"
+                           name="UserName" id="login.UserName" ng-model="UserName" required />
+                    <p ng-show="formLogin.$invalid" ng-if="submitted && formLogin.UserName.$error.required" class="validate-text-warning">Vui lòng nhập Tên đăng nhập</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">Mật khẩu</label>
+                <div class="input-group">
+                    <span class="input-group-addon" style="background-color:#21A6DE;color:#fff;border:1px solid #21A6DE;">
+                        <img src="assets/img/Lock.png" style="width:15px;height:15px;" />
+                    </span>
+                    <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Mật khẩu" ng-enter="btnLogin()"
+                           name="Password" id="login.Password" ng-model="Password" required />
+                    <p ng-show="formLogin.$invalid" ng-if="submitted && formLogin.Password.$error.required" class="validate-text-warning">Vui lòng nhập Mật khẩu</p>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-warning pull-right" ng-click="btnLogin()">
+                    Đăng nhập <i class="glyphicon glyphicon-arrow-right"></i>
+                </button>
+            </div>
+
+            <div class="create-account">
+                <p style="text-align:center;color:red;font-size:14px;">
+                    Bạn chưa có tài khoản ?&nbsp;
+                    <a href="javascript:;" id="register-btn" ng-click="linkRegister()">
+                        <span style="font-size:20px;color:red;font-weight:bold;">Đăng ký ngay</span>
+                    </a>
+                </p>
+            </div>
+            <div style="text-align:center;font-size:18px;font-weight:bold;">
+                <a href="https://hotro.dantrisoft.com/"
+                   style="color:#0B87C9;" target="_blank">
+                    Hướng dẫn sử dụng
+                </a> 
+            </div>
+        </form>
+        <!-- END LOGIN FORM -->
+        <!-- BEGIN FORGOT PASSWORD FORM -->
+        <form class="forget-form" action="index.html" method="post">
+            <h3>Forget Password ?</h3>
+            <p>
+                Enter your e-mail address below to reset your password.
+            </p>
+            <div class="form-group">
+                <div class="input-icon">
+                    <i class="fa fa-envelope"></i>
+                    <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Email" name="resetData.Email" />
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" id="back-btn" class="btn">
+                    <i class="m-icon-swapleft"></i> Back
+                </button>
+                <button type="submit" class="btn blue pull-right">
+                    Submit <i class="m-icon-swapright m-icon-white"></i>
+                </button>
+            </div>
+        </form>
+        <!-- END FORGOT PASSWORD FORM -->
+
+        <!-- BEGIN REGISTRATION FORM -->
+
+        <form class="register-form" name="register" id="register" novalidate ng-controller="RegisterCtrl">
+            <h3>Đăng ký</h3>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <p>
+                        Nhập thông tin cá nhân bên dưới:
+                    </p>
+                    <div class="form-group">
+                        <label class="control-label visible-ie8 visible-ie9">Họ tên <span style="color:red;">*</span></label>
+                        <div class="input-icon">
+                            <!--<i class="fa fa-font"></i>-->
+                            <input class="form-control placeholder-no-fix" type="text" placeholder="Họ và tên" name="FullName" id="registerData.FullName"
+                                   ng-model="FullName" ng-required="true" />
+                            <p ng-show="register.$invalid" ng-if="submitted && register.FullName.$error.required" class="validate-text-warning">Vui lòng nhập họ tên</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label visible-ie8 visible-ie9">Điện thoại <span style="color:red;">*</span></label>
+                        <div class="input-icon">
+                            <!--<i class="glyphicon glyphicon-phone-alt"></i>-->
+                            <input class="form-control placeholder-no-fix" type="text" placeholder="Điện thoại" name="Phone" id="registerData.Phone" ng-model="Phone" required />
+                            <p ng-show="register.$invalid" ng-if="submitted && register.Phone.$error.required" class="validate-text-warning">Vui lòng nhập Điện thoại</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label visible-ie8 visible-ie9">Email <span style="color:red;">*</span></label>
+                        <div class="input-icon">
+                            <!--<i class="fa fa-envelope"></i>-->
+                            <input class="form-control placeholder-no-fix" type="email" placeholder="Email" name="Email" id="registerData.Email" ng-model="Email" required />
+                            <p ng-show="register.$invalid" ng-if="submitted && register.Email.$error.required" class="validate-text-warning">Vui lòng nhập Email</p>
+                            <p ng-show="register.$invalid" ng-if="submitted && register.Email.$error.email" class="validate-text-warning">Email không hợp lệ</p>
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <label class="control-label visible-ie8 visible-ie9">Nhân viên/Đại lý đăng ký hộ khách hàng</label>
+                        <div class="input-icon">
+                            <!--<i class="fa fa-envelope"></i>-->
+                            <input class="form-control placeholder-no-fix" type="text" placeholder="Mã nhân viên hoặc Đại lý" name="PartnerCode" id="registerData.PartnerCode" ng-model="PartnerCode" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <p>
+                        Nhập thông tin gian hàng bên dưới:
+                    </p>
+                    <div class="form-group">
+                        <label class="control-label visible-ie8 visible-ie9">Mã gian hàng <span style="color:red;">*</span> <span style="margin-left:5px;color:dimgray"> https://{{MaGianHang}}.dantrisoft.vn </span> </label>
+                        <div class="input-icon">
+                            <!--<i class="glyphicon glyphicon-home"></i>-->
+                            <input class="form-control placeholder-no-fix" maxlength="15" type="text" placeholder="Tên cửa hàng không dấu hoặc số di động" name="MaGianHang" id="registerData.MaGianHang" ng-model="MaGianHang" required />
+                            <p ng-show="register.$invalid" ng-if="submitted && register.MaGianHang.$error.required" class="validate-text-warning">Vui lòng nhập Mã cửa hàng</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label visible-ie8 visible-ie9">Tên gian hàng <span style="color:red;">*</span></label>
+                        <div class="input-icon">
+                            <!--<i class="fa fa-font"></i>-->
+                            <input class="form-control placeholder-no-fix" type="text" placeholder="Tên cửa hàng hoặc tên quán" name="TenCuaHang" id="registerData.TenCuaHang" ng-model="TenCuaHang" required />
+                            <p ng-show="register.$invalid" ng-if="submitted && register.TenCuaHang.$error.required" class="validate-text-warning">Vui lòng nhập tên cửa hàng hoặc tên quán</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label visible-ie8 visible-ie9">Địa chỉ</label>
+                        <div class="input-icon">
+                            <!--<i class="fa fa-check"></i>-->
+                            <input class="form-control placeholder-no-fix" type="text" placeholder="Địa chỉ" name="Address" id="registerData.Address" ng-model="Address" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label visible-ie8 visible-ie9">Loại hình kinh doanh <span style="color:red;">*</span></label>
+                        <div class="input-icon">
+                            <select id="registerData.MaNganh" name="MaNganh" class="form-control"
+                                    ng-model="MaNganh" ng-required="true"
+                                    ng-options="item.Code as item.MoTa for item in MaNganhList">
+                            </select>
+                            <p ng-show="register.$invalid" ng-if="submitted && register.MaNganh.$error.required" class="validate-text-warning">Vui lòng nhập Loại hình kinh doanh</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <p>
+                        Nhập thông tin tài khoản bên dưới:
+                    </p>
+                    <div class="form-group">
+                        <label class="control-label visible-ie8 visible-ie9">Tên đăng nhập <span style="color:red;">*</span></label>
+                        <div class="input-icon">
+                            <!--<i class="fa fa-user"></i>-->
+                            <input class="form-control placeholder-no-fix" type="text" placeholder="Tên đăng nhập viết liền không dấu tiếng việt" name="UserName" id="registerData.UserName" ng-model="UserName" required />
+                            <p ng-show="register.$invalid" ng-if="submitted && register.UserName.$error.required" class="validate-text-warning">Vui lòng nhập Tên đăng nhập</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label visible-ie8 visible-ie9">Mật khẩu <span style="color:red;">*</span></label>
+                        <div class="input-icon">
+                            <!--<i class="fa fa-lock"></i>-->
+                            <input class="form-control placeholder-no-fix" type="password" id="registerData.Password" autocomplete="off" placeholder="Mật khẩu" name="Password" ng-model="Password" required />
+                            <p ng-show="register.$invalid" ng-if="submitted && register.Password.$error.required" class="validate-text-warning">Vui lòng nhập Mật khẩu</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label visible-ie8 visible-ie9">Xác nhận mật khẩu <span style="color:red;">*</span></label>
+                        <div class="input-icon">
+                            <!--<i class="fa fa-check"></i>-->
+                            <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Xác nhận mật khẩu" name="RePassword" id="registerData.RePassword" ng-model="RePassword" required compare-to="Password" />
+                            <!--<p ng-show="register.$invalid" ng-if="submitted && register.RePassword.$error.required" class="validate-text-warning">Vui lòng nhập Xác nhận mật khẩu</p>-->
+                            <p ng-show="register.RePassword.$error.compareTo" ng-if="submitted && register.RePassword.$error.required" class="validate-text-warning">Mật khẩu và Xác nhận mật khẩu phải giống nhau</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-actions">
+                <button id="register-back-btn" type="button" class="btn btn-default" style="border:1px solid #74A8DC;" ng-click="btnBack()">
+                    <i class="glyphicon glyphicon-arrow-left"></i> Quay lại
+                </button>
+                <button type="button" id="register-submit-btn" class="btn btn-primary pull-right" ng-click="btnRegister();">
+                    Đăng ký <i class="glyphicon glyphicon-user"></i>
+                </button>
+            </div>
+        </form>
+        <!-- END REGISTRATION FORM -->
+    </div>
+
+    <div class="copyright">
+        2018 &copy; DanTriSoft WebApp
+    </div>
+
+    <script src="assets/js/componentLogin.all.min%EF%B9%96v=1804222153.js"></script>
+    <script src="scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="signalr/hubs.js"></script>
+
+    <script src="assets/js/appLogin.all.min%EF%B9%96v=211106.js"></script>
+
+    <script>
+        jQuery(document).ready(function () {
+
+            sessionStorage.setItem("host", "https://dantrisoft.vn/");
+			
+            //var lstHost = JSON.parse(listhost);
+
+            //if (lstHost.length > 1) {
+            //    sessionStorage.setItem("host", lstHost[Math.floor(Math.random() * parseInt(lstHost.length))].host);
+            //}
+            //else {
+            //    sessionStorage.setItem("host", lstHost[0].host);
+            //}
+
+            //*****************
+            //var lstHostWebservice = JSON.parse(listhostWebservice);
+            //if (lstHostWebservice.length > 1) {
+            //    sessionStorage.setItem("hostWebService", lstHostWebservice[Math.floor(Math.random() * parseInt(lstHostWebservice.length))].hostws);
+            //}
+            //else {
+            //    sessionStorage.setItem("hostWebService", lstHostWebservice[0].hostws);
+            //}
+
+        });
+    </script>
+
+</body>
+
+</html>
